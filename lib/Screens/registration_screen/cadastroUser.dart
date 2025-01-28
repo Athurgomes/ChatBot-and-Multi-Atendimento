@@ -33,7 +33,7 @@ class SignUpScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: 600,
                 child: Card(
                   elevation: 6,
