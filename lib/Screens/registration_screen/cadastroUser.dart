@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:chatbot_multiatendimento/Screens/login_screen/login.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -217,7 +218,12 @@ class SignUpScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
                 child: const Text(
                   'Já possui uma conta? Faça login',
                   style: TextStyle(
