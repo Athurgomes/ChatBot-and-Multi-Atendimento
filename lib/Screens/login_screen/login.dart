@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:chatbot_multiatendimento/Screens/registration_screen/cadastroUser.dart'; // Importando a tela de cadastro
 
 class LoginScreen extends StatelessWidget {
