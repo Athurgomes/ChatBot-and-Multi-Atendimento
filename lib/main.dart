@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:chatbot_multiatendimento/Screens/registration_screen/cadastroUser.dart';
 import 'package:chatbot_multiatendimento/Screens/login_screen/login.dart';
-import 'package:chatbot_multiatendimento/Screens/homepage/home.dart'; // Importe a HomePage
+// ignore: unused_import
+import 'package:chatbot_multiatendimento/Screens/homepage/home.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const LoginScreen(), // Defina a tela inicial como LoginScreen
+      home: const LoginScreen(), 
     );
   }
 }
