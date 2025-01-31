@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:chatbot_multiatendimento/Screens/registration_screen/cadastroUser.dart';
+import 'package:chatbot_multiatendimento/Screens/homepage/home.dart'; // Importe a HomePage
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -26,7 +28,7 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(
+              const Text(
                 'Login',
                 style: TextStyle(
                   fontSize: 32.0,
@@ -34,27 +36,31 @@ class LoginScreen extends StatelessWidget {
                   color: Colors.black87,
                 ),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Email',
                   labelStyle: TextStyle(color: Colors.black54), // Cor preto/cinza
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               TextField(
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
                   labelStyle: TextStyle(color: Colors.black54), // Cor preto/cinza
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
                   // Handle login logic
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
@@ -62,6 +68,23 @@ class LoginScreen extends StatelessWidget {
                 child: const Text(
                   'Login',
                   style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpScreen()),
+                  );
+                },
+                child: const Text(
+                  'Não possui cadastro? Crie sua conta já!',
+                  style: TextStyle(
+                    color: Colors.blueAccent,
+                    fontSize: 16,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
             ],

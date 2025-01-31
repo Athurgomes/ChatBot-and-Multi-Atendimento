@@ -1,17 +1,6 @@
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:chatbot_multiatendimento/Screens/login_screen/login.dart';
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignUpScreen(),
-    );
-  }
-}
 
 class SignUpScreen extends StatelessWidget {
   final TextEditingController cpfController = TextEditingController();
@@ -213,23 +202,6 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
-                },
-                child: const Text(
-                  'Já possui uma conta? Faça login',
-                  style: TextStyle(
-                    color: Colors.blueAccent,
-                    fontSize: 16,
-                    decoration: TextDecoration.underline,
                   ),
                 ),
               ),
