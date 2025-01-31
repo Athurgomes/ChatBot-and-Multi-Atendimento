@@ -1,16 +1,22 @@
-# chatbot_multiatendimento
+# Chatbot Multiatendimento
 
-A new Flutter project.
+Este é um projeto Flutter para um chatbot com multi atendimento. O objetivo deste projeto será fornecer uma interface de usuário para um chatbot que pode lidar com múltiplos atendimentos simultaneamente.
 
-## Getting Started
+## Funcionalidades
 
-This project is a starting point for a Flutter application.
+- 🌟 Interface de usuário amigável e responsiva.
+- 📝 Tela de cadastro de usuário.
+- 🔐 Tela de login de usuário.
+- 🔄 Integração com backend para gerenciamento de sessões de chat.
+- 👥 Suporte para múltiplos atendimentos simultâneos.
 
-A few resources to get you started if this is your first Flutter project:
+## Tecnologias Utilizadas
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- 🛠️ Flutter
+- 💻 Dart
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Pré-requisitos
+
+- Flutter SDK: [Instalação do Flutter](https://docs.flutter.dev/get-started/install)
+- Dart SDK: [Instalação do Dart](https://dart.dev/get-dart)
+
