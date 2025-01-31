@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// ignore: unused_import
 import 'package:chatbot_multiatendimento/Screens/login_screen/login.dart';
 
 class MyApp extends StatelessWidget {
@@ -36,214 +35,274 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[50],
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              SizedBox(
-                width: 600,
-                child: Card(
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 24.0, horizontal: 16.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          'Cadastre-se agora',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Container(
+            width: constraints.maxWidth,
+            height: constraints.maxHeight,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 17, 0, 115),
+                  Color.fromARGB(255, 0, 42, 50)
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 600,
+                      child: Card(
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
-                        const SizedBox(height: 8),
-                        const SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: DropdownButtonFormField<String>(
-                                decoration: InputDecoration(
-                                  labelText: 'Tipo de Cadastro',
-                                  prefixIcon: const Icon(Icons.person,
-                                      color: Colors.blueAccent),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 24.0, horizontal: 16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // Logo acima do "Cadastre-se agora"
+                              Image.asset(
+                                'assets/logo.png', // Coloque o caminho correto da sua logo
+                                height: 100, // Tamanho da logo
+                              ),
+                              const SizedBox(height: 16),
+                              const Text(
+                                'Cadastre-se agora',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
                                 ),
-                                items: const [
-                                  DropdownMenuItem(
-                                    value: 'Pessoa Física',
-                                    child: Text('Pessoa Física'),
+                              ),
+                              const SizedBox(height: 16),
+
+                              // Dropdown + CPF/CNPJ
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'Tipo de Cadastro',
+                                        prefixIcon: const Icon(Icons.person,
+                                            color: Color(0xFF002145)),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                      ),
+                                      value: selectedType,
+                                      items: const [
+                                        DropdownMenuItem(
+                                          value: 'Pessoa Física',
+                                          child: Text('Pessoa Física'),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: 'Pessoa Jurídica',
+                                          child: Text('Pessoa Jurídica'),
+                                        ),
+                                      ],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          selectedType = value!;
+                                        });
+                                      },
+                                    ),
                                   ),
-                                  DropdownMenuItem(
-                                    value: 'Pessoa Jurídica',
-                                    child: Text('Pessoa Jurídica'),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: TextField(
+                                      controller:
+                                          selectedType == 'Pessoa Física'
+                                              ? cpfController
+                                              : cnpjController,
+                                      decoration: InputDecoration(
+                                        labelText:
+                                            selectedType == 'Pessoa Física'
+                                                ? 'CPF'
+                                                : 'CNPJ',
+                                        prefixIcon: const Icon(
+                                          Icons.credit_card,
+                                          color: Color(0xFF002145),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ],
-                                onChanged: (value) {},
                               ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: TextField(
-                                controller: cpfController,
-                                decoration: InputDecoration(
-                                  labelText: 'CPF',
-                                  prefixIcon: const Icon(Icons.credit_card,
-                                      color: Colors.blueAccent),
-                                  border: OutlineInputBorder(
+                              const SizedBox(height: 16),
+
+                              // Nome + Sobrenome
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextField(
+                                      controller: firstNameController,
+                                      decoration: InputDecoration(
+                                        labelText: 'Primeiro Nome',
+                                        prefixIcon: const Icon(Icons.person,
+                                            color: Color(0xFF002145)),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: TextField(
+                                      controller: lastNameController,
+                                      decoration: InputDecoration(
+                                        labelText: 'Sobrenome',
+                                        prefixIcon: const Icon(
+                                            Icons.person_outline,
+                                            color: Color(0xFF002145)),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+
+                              // Email + WhatsApp
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextField(
+                                      controller: emailController,
+                                      decoration: InputDecoration(
+                                        labelText: 'E-mail',
+                                        prefixIcon: const Icon(Icons.email,
+                                            color: Color(0xFF002145)),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: TextField(
+                                      controller: whatsappController,
+                                      decoration: InputDecoration(
+                                        labelText: 'WhatsApp',
+                                        prefixIcon: const Icon(Icons.phone,
+                                            color: Color(0xFF002145)),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+
+                              // Senha + Confirmar Senha
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextField(
+                                      controller: passwordController,
+                                      obscureText: true,
+                                      decoration: InputDecoration(
+                                        labelText: 'Senha',
+                                        prefixIcon: const Icon(Icons.lock,
+                                            color: Color(0xFF002145)),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: TextField(
+                                      controller: confirmPasswordController,
+                                      obscureText: true,
+                                      decoration: InputDecoration(
+                                        labelText: 'Confirmar Senha',
+                                        prefixIcon: const Icon(
+                                            Icons.lock_outline,
+                                            color: Color(0xFF002145)),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 24),
+
+                              // Botão de Cadastro
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 17, 0, 115),
+                                  minimumSize: const Size(double.infinity, 48),
+                                  shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                controller: firstNameController,
-                                decoration: InputDecoration(
-                                  labelText: 'Primeiro Nome',
-                                  prefixIcon: const Icon(Icons.person,
-                                      color: Colors.blueAccent),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
+                                child: const Text(
+                                  'Cadastrar',
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.white),
                                 ),
                               ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: TextField(
-                                controller: lastNameController,
-                                decoration: InputDecoration(
-                                  labelText: 'Sobrenome',
-                                  prefixIcon: const Icon(Icons.person_outline,
-                                      color: Colors.blueAccent),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                controller: emailController,
-                                decoration: InputDecoration(
-                                  labelText: 'E-mail',
-                                  prefixIcon: const Icon(Icons.email,
-                                      color: Colors.blueAccent),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: TextField(
-                                controller: whatsappController,
-                                decoration: InputDecoration(
-                                  labelText: 'WhatsApp',
-                                  prefixIcon: const Icon(Icons.phone,
-                                      color: Colors.blueAccent),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                controller: passwordController,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  labelText: 'Senha',
-                                  prefixIcon: const Icon(Icons.lock,
-                                      color: Colors.blueAccent),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: TextField(
-                                controller: confirmPasswordController,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  labelText: 'Confirmar Senha',
-                                  prefixIcon: const Icon(Icons.lock_outline,
-                                      color: Colors.blueAccent),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
-                            minimumSize: const Size(double.infinity, 48),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
+                            ],
                           ),
-                          child: const Text(
-                            'Cadastrar',
-                            style: TextStyle(fontSize: 16, color: Colors.white),
-                          ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 24),
+
+                    // Link para login
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                      },
+                      child: const Text(
+                        'Já possui uma conta? Faça login',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontSize: 16,
+                          //decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 24),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
-                },
-                child: const Text(
-                  'Já possui uma conta? Faça login',
-                  style: TextStyle(
-                    color: Colors.blueAccent,
-                    fontSize: 16,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

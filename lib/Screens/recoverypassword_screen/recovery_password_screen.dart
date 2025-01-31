@@ -34,6 +34,8 @@ import 'package:flutter/material.dart'
         Widget;
 
 class RecoveryPasswordScreen extends StatefulWidget {
+  const RecoveryPasswordScreen({super.key});
+
   @override
   _RecoveryPasswordScreenState createState() => _RecoveryPasswordScreenState();
 }
@@ -129,7 +131,7 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
                               ),
                             ),
                             SizedBox(height: 20.0),
-                            Container(
+                            SizedBox(
                               width: 300.0,
                               height: 50.0,
                               child: ElevatedButton(
@@ -162,7 +164,7 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
                               ),
                             ),
                             SizedBox(height: 20.0),
-                            Container(
+                            SizedBox(
                               width: 300.0,
                               height: 50.0,
                               child: ElevatedButton(
@@ -195,7 +197,7 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
                               ),
                             ),
                             SizedBox(height: 20.0),
-                            Container(
+                            SizedBox(
                               width: 300.0,
                               height: 50.0,
                               child: ElevatedButton(
