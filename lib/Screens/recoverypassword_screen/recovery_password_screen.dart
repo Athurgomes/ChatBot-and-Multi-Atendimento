@@ -13,6 +13,8 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
   final TextEditingController emailCodeController = TextEditingController();
   final TextEditingController whatsappCodeController = TextEditingController();
 
+  String recoveryMethod = 'email'; // Default is email
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,23 +67,67 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
                                   ),
                                 ),
                                 const SizedBox(height: 20.0),
-                                _buildTextField(
-                                    emailController, 'E-mail', Icons.email),
+
+                                // Seleção de método de recuperação
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Radio<String>(
+                                      value: 'email',
+                                      groupValue: recoveryMethod,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          recoveryMethod = value!;
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'E-mail',
+                                      style: TextStyle(color: Colors.black87),
+                                    ),
+                                    const SizedBox(width: 20),
+                                    Radio<String>(
+                                      value: 'whatsapp',
+                                      groupValue: recoveryMethod,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          recoveryMethod = value!;
+                                        });
+                                      },
+                                    ),
+                                    const Text(
+                                      'WhatsApp',
+                                      style: TextStyle(color: Colors.black87),
+                                    ),
+                                  ],
+                                ),
+
                                 const SizedBox(height: 16),
-                                _buildTextField(emailCodeController,
-                                    'Código do E-mail', Icons.vpn_key),
-                                const SizedBox(height: 16),
-                                _buildTextField(whatsappController,
-                                    'Número do WhatsApp', Icons.phone),
-                                const SizedBox(height: 16),
-                                _buildTextField(whatsappCodeController,
-                                    'Código do WhatsApp', Icons.lock),
+
+                                // Campos de input dependendo do método selecionado
+                                if (recoveryMethod == 'email') ...[
+                                  _buildTextField(
+                                      emailController, 'E-mail', Icons.email),
+                                  const SizedBox(height: 16),
+                                  _buildTextField(emailCodeController,
+                                      'Código do E-mail', Icons.vpn_key),
+                                ] else ...[
+                                  _buildTextField(whatsappController,
+                                      'Número do WhatsApp', Icons.phone),
+                                  const SizedBox(height: 16),
+                                  _buildTextField(whatsappCodeController,
+                                      'Código do WhatsApp', Icons.lock),
+                                ],
                                 const SizedBox(height: 24),
+
+                                // Botão de recuperação
                                 SizedBox(
                                   width: double.infinity,
                                   height: 50.0,
                                   child: ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      // Lógica para recuperação da senha
+                                    },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor:
                                           const Color.fromARGB(255, 17, 0, 115),
