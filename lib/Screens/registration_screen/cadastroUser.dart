@@ -44,11 +44,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color(0xFF001C70), // Azul escuro
-                  Color(0xFF0F96BB), // Verde água vibrante
+                  Color.fromARGB(255, 17, 0, 115), // Azul escuro
+                  Color.fromARGB(255, 0, 42, 50), // Verde água vibrante
                 ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
             ),
             child: SafeArea(
