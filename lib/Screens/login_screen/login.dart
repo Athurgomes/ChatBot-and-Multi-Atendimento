@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:chatbot_multiatendimento/Screens/registration_screen/cadastroUser.dart';
 import 'package:chatbot_multiatendimento/Screens/recoverypassword_screen/recovery_password_screen.dart';
+import 'package:chatbot_multiatendimento/Screens/homepage/home.dart'; // Import the home screen
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -125,7 +126,13 @@ class LoginScreen extends StatelessWidget {
                             height: 55.0, // Tamanho maior para o botão
                             child: ElevatedButton(
                               onPressed: () {
-                                // Lógica de login
+                                // Navegar para a tela de home
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DashboardPage(),
+                                  ),
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:

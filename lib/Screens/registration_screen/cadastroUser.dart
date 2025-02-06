@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chatbot_multiatendimento/Screens/login_screen/login.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignUpScreen(),
-    );
-  }
-}
-
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -285,9 +273,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   onPressed: () {},
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                        const Color.fromARGB(255, 17, 0, 115),
+                                        const Color(0xFF001C70),
                                     minimumSize:
-                                        const Size(double.infinity, 48),
+                                        const Size(double.infinity, 55),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
