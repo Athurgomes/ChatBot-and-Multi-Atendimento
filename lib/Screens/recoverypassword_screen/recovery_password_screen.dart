@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:chatbot_multiatendimento/Screens/login_screen/login.dart';
 
 class RecoveryPasswordScreen extends StatefulWidget {
   const RecoveryPasswordScreen({super.key});
@@ -13,7 +14,7 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
   final TextEditingController emailCodeController = TextEditingController();
   final TextEditingController whatsappCodeController = TextEditingController();
 
-  String recoveryMethod = 'email'; // Default is email
+  String recoveryMethod = 'email'; // Método de recuperação padrão
 
   @override
   Widget build(BuildContext context) {
@@ -40,35 +41,37 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const SizedBox(height: 40),
                       Image.asset(
                         'assets/logo.png',
-                        height: 100,
+                        height: 80,
                       ),
                       const SizedBox(height: 40),
-                      SizedBox(
-                        width: 600,
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxWidth: 600,
+                        ),
                         child: Card(
                           elevation: 6,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 24.0, horizontal: 16.0),
+                            padding: const EdgeInsets.all(20.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 const Text(
                                   'Recuperação de Senha',
                                   style: TextStyle(
-                                    fontSize: 24,
+                                    fontSize: 22,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black87,
                                   ),
                                 ),
-                                const SizedBox(height: 20.0),
+                                const SizedBox(height: 16),
 
-                                // Seleção de método de recuperação
+                                // Opção de escolha do método de recuperação
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -81,10 +84,7 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
                                         });
                                       },
                                     ),
-                                    const Text(
-                                      'E-mail',
-                                      style: TextStyle(color: Colors.black87),
-                                    ),
+                                    const Text('E-mail'),
                                     const SizedBox(width: 20),
                                     Radio<String>(
                                       value: 'whatsapp',
@@ -95,16 +95,12 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
                                         });
                                       },
                                     ),
-                                    const Text(
-                                      'WhatsApp',
-                                      style: TextStyle(color: Colors.black87),
-                                    ),
+                                    const Text('WhatsApp'),
                                   ],
                                 ),
-
                                 const SizedBox(height: 16),
 
-                                // Campos de input dependendo do método selecionado
+                                // Exibir campos de acordo com o método selecionado
                                 if (recoveryMethod == 'email') ...[
                                   _buildTextField(
                                       emailController, 'E-mail', Icons.email),
@@ -120,27 +116,21 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
                                 ],
                                 const SizedBox(height: 24),
 
-                                // Botão de recuperação
-                                SizedBox(
-                                  width: double.infinity,
-                                  height: 50.0,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      // Lógica para recuperação da senha
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          const Color.fromARGB(255, 17, 0, 115),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
+                                // Botão para recuperar senha
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFF001C70),
+                                    minimumSize:
+                                        const Size(double.infinity, 50),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
                                     ),
-                                    child: const Text(
-                                      'Recuperar Senha',
-                                      style: TextStyle(
-                                          fontSize: 16, color: Colors.white),
-                                    ),
+                                  ),
+                                  child: const Text(
+                                    'Recuperar Senha',
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.white),
                                   ),
                                 ),
                               ],
@@ -149,12 +139,18 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
                         ),
                       ),
                       const SizedBox(height: 24),
+
+                      // Link para voltar ao login
                       TextButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen()),
+                          );
                         },
                         child: const Text(
-                          'Voltar para Login',
+                          'Já tem login? Clique aqui',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -172,15 +168,16 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
     );
   }
 
+  // Método para construir campos de texto com ícone e borda arredondada
   Widget _buildTextField(
       TextEditingController controller, String label, IconData icon) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon, color: Color(0xFF002145)),
+        prefixIcon: Icon(icon, color: const Color(0xFF002145)),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(5.0),
         ),
       ),
     );

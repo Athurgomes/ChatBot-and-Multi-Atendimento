@@ -1,213 +1,279 @@
 import 'package:flutter/material.dart';
-// ignore: unused_import
-import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
-class MyApp extends StatelessWidget {
+void main() {
+  runApp(const HomePage());
+}
+
+// Classe principal do aplicativo
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DashboardPage(),
+      home: const DashboardPage(),
     );
   }
 }
 
-class DashboardPage extends StatelessWidget {
+// Página principal do dashboard
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({super.key});
+
+  @override
+  _DashboardPageState createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  bool isMenuExpanded = true; // Controle de expansão do menu
+  bool isCalendarVisible = false; // Controle da visibilidade do calendário
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 48, 47, 47), // Fundo da página em cinza claro
-      body: Column(
-        children: [
-          HeaderTopBar(),
-          Expanded(
-            child: Row(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Row(
               children: [
-                SidebarMenu(),
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 10), // Reduzindo espaço superior
-                          child: HeaderSection(),
-                        ),
-                        SizedBox(height: 10), // Reduzindo espaçamento
-                        StatisticsSection(),
-                      ],
-                    ),
+                // Menu lateral animado
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  width: isMenuExpanded ? 250 : 60,
+                  child: SideMenu(
+                    isExpanded: isMenuExpanded,
+                    onToggle: () {
+                      setState(() {
+                        isMenuExpanded = !isMenuExpanded;
+                      });
+                    },
                   ),
-                ),
+                ).animate().slideX(duration: 500.ms), // Animação de slide
+                const Expanded(
+                    flex: 6, child: DashboardContent()), // Conteúdo principal
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class HeaderTopBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 48, 47, 47), // Fundo do topo em cinza claro
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 48, 47, 47), // Fundo da mensagem de conexão em cinza claro
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.wifi, color: Colors.white, size: 16),
-                    SizedBox(width: 5),
-                    Text("Conectado", style: TextStyle(color: Colors.white)),
-                  ],
-                ),
+            // Exibição do calendário
+            if (isCalendarVisible)
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: CalendarDatePicker(
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2100),
+                    onDateChanged: (date) {},
+                  ),
+                )
+                    .animate()
+                    .fade(duration: 400.ms)
+                    .scale(), // Animação do calendário
               ),
-              SizedBox(width: 10),
-              Text("Canal: AssistFlow", style: TextStyle(fontWeight: FontWeight.bold)),
-            ],
-          ),
-          Row(
-            children: [
-              Icon(Icons.calendar_today, color: Colors.grey),
-              SizedBox(width: 10),
-              Icon(Icons.notifications, color: Colors.red),
-              SizedBox(width: 10),
-              Icon(Icons.smart_toy, color: Colors.blue),
-              SizedBox(width: 10),
-              Icon(Icons.person, color: Colors.grey),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            isCalendarVisible = !isCalendarVisible;
+          });
+        },
+        child: const Icon(Icons.calendar_today),
+      ).animate().scale(duration: 300.ms), // Animação do botão de calendário
     );
   }
 }
 
-class SidebarMenu extends StatelessWidget {
+// Menu lateral do dashboard
+class SideMenu extends StatelessWidget {
+  final bool isExpanded;
+  final VoidCallback onToggle;
+
+  const SideMenu({super.key, required this.isExpanded, required this.onToggle});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
-      color: const Color(0xFF001C70),
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+      padding: const EdgeInsets.all(20),
+      color: const Color.fromARGB(255, 17, 0, 115),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "AssistFlow",
-            style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 20),
-          _menuItem(Icons.chat, "Atendimentos"),
-          _menuItem(Icons.schedule, "Agendamentos"),
-          _menuItem(Icons.smart_toy, "ChatBot"),
-          _menuItem(Icons.message, "Base de Mensagens"),
-          Divider(color: Colors.white70),
-          Text(
-            "Configurações",
-            style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          _menuItem(Icons.power, "Canais"),
-          _menuItem(Icons.storage, "Setores"),
-          _menuItem(Icons.person, "Atendentes"),
-          _menuItem(Icons.label, "Etiquetas"),
-          _menuItem(Icons.layers, "Grupos"),
-          _menuItem(Icons.contacts, "Contatos"),
-        ],
-      ),
-    );
-  }
-
-  Widget _menuItem(IconData icon, String title) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.white),
-          SizedBox(width: 10),
-          Text(title, style: TextStyle(color: Colors.white, fontSize: 16)),
-        ],
-      ),
-    );
-  }
-}
-
-class HeaderSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Loja Teste", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(Icons.calendar_today, color: Colors.grey),
-              SizedBox(width: 5),
-              Text("Vencimento: NADA"),
-              SizedBox(width: 20),
-              Switch(value: true, onChanged: (val) {}),
+              // Animação no título "AssisFlow"
+              if (isExpanded)
+                Text(
+                  "AssisFlow",
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ).animate().fade(duration: 500.ms).scale(),
+              IconButton(
+                icon: Icon(isExpanded
+                    ? Icons.arrow_back_ios
+                    : Icons.arrow_forward_ios),
+                color: Colors.white,
+                onPressed: onToggle,
+              ),
             ],
           ),
+          const SizedBox(height: 30),
+          // Itens do menu com animação
+          MenuItem(
+              icon: Icons.dashboard,
+              title: "Dashboard",
+              isExpanded: isExpanded),
+          MenuItem(icon: Icons.chat, title: "Chatbot", isExpanded: isExpanded),
+          MenuItem(
+              icon: Icons.event, title: "Agendamentos", isExpanded: isExpanded),
+          MenuItem(
+              icon: Icons.settings,
+              title: "Configurações",
+              isExpanded: isExpanded),
         ],
       ),
     );
   }
 }
 
-class StatisticsSection extends StatelessWidget {
+// Classe para representar os itens do menu
+class MenuItem extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final bool isExpanded;
+
+  const MenuItem(
+      {super.key,
+      required this.icon,
+      required this.title,
+      required this.isExpanded});
+
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Row(
+        children: [
+          Icon(icon,
+              color:
+                  const Color.fromARGB(179, 255, 255, 255)), // Cor dos icones
+          if (isExpanded) ...[
+            const SizedBox(width: 10),
+            // Animação dos itens do menu
+            Text(title,
+                style: const TextStyle(fontSize: 18, color: Colors.white)),
+          ]
+        ],
+      ).animate().fade(duration: 400.ms).scale(), // Animação de fade e escala
+    );
+  }
+}
+
+// Conteúdo principal do dashboard
+class DashboardContent extends StatelessWidget {
+  const DashboardContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Header(),
+          SizedBox(height: 20),
+          Expanded(child: DashboardGrid()), // Grade de cards
+        ],
+      ),
+    ).animate().fade(duration: 500.ms); // Animação do conteúdo principal
+  }
+}
+
+// Cabeçalho do dashboard
+class Header extends StatelessWidget {
+  const Header({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _statCard("Total", "0", Icons.pie_chart, Colors.purple),
-        _statCard("Atendimento", "0", Icons.people, Colors.green),
-        _statCard("Pendentes", "0", Icons.update, Colors.orange),
-        _statCard("Bot", "1", Icons.smart_toy, Colors.blue),
-        _statCard("Finalizado", "0", Icons.check_circle, Colors.teal),
+        Text("Dashboard",
+            style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+                color: Colors.white)),
+        CircleAvatar(
+          radius: 20,
+          backgroundImage: NetworkImage("https://via.placeholder.com/150"),
+        ),
+      ],
+    ).animate().fade(duration: 400.ms).scale(); // Animação do cabeçalho
+  }
+}
+
+// Grade de cards do dashboard
+class DashboardGrid extends StatelessWidget {
+  const DashboardGrid({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: MediaQuery.of(context).size.width > 900 ? 3 : 1,
+      crossAxisSpacing: 20,
+      mainAxisSpacing: 20,
+      children: const [
+        DashboardCard(title: "Atendimentos", value: "150"),
+        DashboardCard(title: "Chatbot", value: "85"),
+        DashboardCard(title: "Agendamentos", value: "42"),
       ],
     );
   }
+}
 
-  Widget _statCard(String title, String value, IconData icon, Color color) {
-    return Expanded(
-      child: Container(
-        margin: EdgeInsets.all(8),
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)],
-        ),
-        child: Column(
-          children: [
-            Icon(icon, size: 40, color: color),
-            SizedBox(height: 10),
-            Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            Text(value, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          ],
-        ),
+// Card individual do dashboard com animação
+class DashboardCard extends StatefulWidget {
+  final String title;
+  final String value;
+
+  const DashboardCard({super.key, required this.title, required this.value});
+
+  @override
+  State<DashboardCard> createState() => _DashboardCardState();
+}
+
+class _DashboardCardState extends State<DashboardCard> {
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(widget.title,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 10),
+              Text(widget.value,
+                  style: const TextStyle(fontSize: 26, color: Colors.blue)),
+            ],
+          ),
+        ).animate().fade(duration: 500.ms).scale(), // Animação do card
       ),
     );
   }
