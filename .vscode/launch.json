@@ -1,25 +1,37 @@
 {
-    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Usar o IntelliSense para obter informações sobre os atributos possíveis.
     // Focalizar para exibir as descrições dos atributos existentes.
-    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    // Para mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "ChatBot-and-Multi-Atendimento",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "ChatBot-and-Multi-Atendimento (profile mode)",
+            "name": "ChatBot-and-Multi-Atendimento (Debug)",
             "request": "launch",
             "type": "dart",
+            "program": "lib/main.dart", // Aponte para o arquivo principal do seu app
+            "flutterMode": "debug"
+        },
+        {
+            "name": "ChatBot-and-Multi-Atendimento (Profile Mode)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart", // Aponte para o arquivo principal do seu app
             "flutterMode": "profile"
         },
         {
-            "name": "ChatBot-and-Multi-Atendimento (release mode)",
+            "name": "ChatBot-and-Multi-Atendimento (Release Mode)",
             "request": "launch",
             "type": "dart",
+            "program": "lib/main.dart", // Aponte para o arquivo principal do seu app
             "flutterMode": "release"
+        },
+        {
+            "name": "ChatBot-and-Multi-Atendimento (Chrome)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart", // Aponte para o arquivo principal do seu app
+            "flutterMode": "debug",
+            "deviceId": "chrome" // Isso indica que você deseja rodar no Chrome
         }
     ]
 }

@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
+
 
   # Ícones e UI
   cupertino_icons: ^1.0.8
@@ -24,7 +26,7 @@ dependencies:
 
   # Animações e UI avançada
   animations: ^2.0.7
-  lottie: ^2.7.0  # Animações JSON do After Effects
+  lottie: ^3.3.1  # Animações JSON do After Effects
 
   # Gráficos e Indicadores
   fl_chart: ^0.70.2  # Gráficos avançados
@@ -35,9 +37,9 @@ dependencies:
   http: ^1.2.0  # Alternativa ao Dio para chamadas REST
 
   # Firebase (caso precise)
-  firebase_core: ^2.30.1
-  firebase_auth: ^4.17.9
-  cloud_firestore: ^4.17.0
+  firebase_core: ^3.11.0
+  firebase_auth: ^5.4.2
+  cloud_firestore: ^5.6.3
 
   # Armazenamento local
   shared_preferences: ^2.2.2  # Armazena preferências do usuário
@@ -45,18 +47,18 @@ dependencies:
   hive_flutter: ^1.1.0
 
   # Notificações e Permissões
-  flutter_local_notifications: ^16.3.2
+  flutter_local_notifications: ^18.0.1
   permission_handler: ^11.3.1
 
   # Outras ferramentas úteis
-  intl: ^0.19.0  # Manipulação de datas e números
+  intl: ^0.20.2  # Manipulação de datas e números
   path_provider: ^2.1.2  # Acesso a diretórios locais
   url_launcher: ^6.2.5  # Abrir URLs e links externos
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true

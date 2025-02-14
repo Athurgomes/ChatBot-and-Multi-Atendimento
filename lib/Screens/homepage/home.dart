@@ -111,7 +111,7 @@ class SideMenu extends StatelessWidget {
               // Animação no título "AssisFlow"
               if (isExpanded)
                 Text(
-                  "AssisFlow",
+                  "InovaSys",
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -229,13 +229,14 @@ class DashboardGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
-      crossAxisCount: MediaQuery.of(context).size.width > 900 ? 3 : 1,
+      crossAxisCount: MediaQuery.of(context).size.width > 900 ? 4 : 1,
       crossAxisSpacing: 20,
       mainAxisSpacing: 20,
       children: const [
-        DashboardCard(title: "Atendimentos", value: "150"),
-        DashboardCard(title: "Chatbot", value: "85"),
-        DashboardCard(title: "Agendamentos", value: "42"),
+        DashboardCard(title: "Atendimentos", value: "0"),
+        DashboardCard(title: "Chatbot", value: "0"),
+        DashboardCard(title: "Agendamentos", value: "0"),
+        DashboardCard(title: "Atendentes Online", value: "0"),
       ],
     );
   }
