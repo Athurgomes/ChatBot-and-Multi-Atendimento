@@ -27,8 +27,8 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromARGB(255, 17, 0, 115),
-                  Color.fromARGB(255, 0, 42, 50),
+                  Color.fromARGB(255, 26, 90, 153),
+                  Color(0xFF004CFF),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -120,7 +120,7 @@ class _RecoveryPasswordScreenState extends State<RecoveryPasswordScreen> {
                                 ElevatedButton(
                                   onPressed: () {},
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF001C70),
+                                    backgroundColor: const Color(0xFF004CFF),
                                     minimumSize:
                                         const Size(double.infinity, 50),
                                     shape: RoundedRectangleBorder(

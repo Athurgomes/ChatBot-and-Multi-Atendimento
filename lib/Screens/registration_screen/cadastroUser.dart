@@ -27,17 +27,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
+          // Definindo largura (maxWidth) e altura (maxHeight) dinamicamente com base na tela
+          double containerWidth;
+          double containerHeight;
+
+          if (constraints.maxWidth > 1200) {
+            containerWidth = 800; // Largura fixa para telas grandes
+          } else if (constraints.maxWidth > 800) {
+            containerWidth = 600; // Largura intermediária
+          } else {
+            containerWidth =
+                constraints.maxWidth * 0.85; // 85% para telas pequenas
+          }
+
+          if (constraints.maxHeight > 2000) {
+            containerHeight =
+                constraints.maxHeight * 0.9; // 100% para telas grandes
+          } else if (constraints.maxHeight > 800) {
+            containerHeight =
+                constraints.maxHeight * 0.9; // 90% para telas medias
+          } else {
+            containerHeight =
+                constraints.maxHeight * 0.7; // 80% para telas pequenas
+          }
+
           return Container(
             width: constraints.maxWidth,
             height: constraints.maxHeight,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromARGB(255, 17, 0, 115), // Azul escuro
-                  Color.fromARGB(255, 0, 42, 50), // Verde água vibrante
+                  Color.fromARGB(255, 26, 90, 153), // Azul escuro
+                  Color(0xFF004CFF), // Verde água vibrante
                 ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
               ),
             ),
             child: SafeArea(
@@ -52,15 +76,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       // Exibe a logo
                       Image.asset(
                         'assets/logo.png',
-                        height: 80,
+                        height: containerWidth > 600 ? 120 : 80,
                       ),
                       const SizedBox(height: 40),
 
                       // Card que contém o formulário de cadastro
                       ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          maxWidth:
-                              600, // Define um limite de largura para manter responsividade
+                        constraints: BoxConstraints(
+                          maxWidth: containerWidth, // A largura será dinâmica
+                          maxHeight: containerHeight, // A altura será dinâmica
                         ),
                         child: Card(
                           elevation: 6,
@@ -81,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     color: Colors.black87,
                                   ),
                                 ),
-                                const SizedBox(height: 16),
+                                const SizedBox(height: 20),
 
                                 // Dropdown para seleção do tipo de cadastro e campo de CPF/CNPJ
                                 Row(
@@ -187,11 +211,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   children: [
                                     Expanded(
                                       child: TextField(
-                                        controller: firstNameController,
+                                        controller: emailController,
                                         decoration: InputDecoration(
                                           labelText: 'Email ',
                                           prefixIcon: const Icon(
-                                            Icons.person,
+                                            Icons.email,
                                             color: Color(0xFF002145),
                                           ),
                                           border: OutlineInputBorder(
@@ -204,11 +228,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: TextField(
-                                        controller: lastNameController,
+                                        controller: whatsappController,
                                         decoration: InputDecoration(
                                           labelText: 'Whatsapp',
                                           prefixIcon: const Icon(
-                                            Icons.person_outline,
+                                            Icons.phone,
                                             color: Color(0xFF002145),
                                           ),
                                           border: OutlineInputBorder(
@@ -225,11 +249,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   children: [
                                     Expanded(
                                       child: TextField(
-                                        controller: firstNameController,
+                                        controller: passwordController,
                                         decoration: InputDecoration(
                                           labelText: 'Senha ',
                                           prefixIcon: const Icon(
-                                            Icons.person,
+                                            Icons.lock,
                                             color: Color(0xFF002145),
                                           ),
                                           border: OutlineInputBorder(
@@ -242,11 +266,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: TextField(
-                                        controller: lastNameController,
+                                        controller: confirmPasswordController,
                                         decoration: InputDecoration(
                                           labelText: 'Confirmar Senha ',
                                           prefixIcon: const Icon(
-                                            Icons.person_outline,
+                                            Icons.lock_outline,
                                             color: Color(0xFF002145),
                                           ),
                                           border: OutlineInputBorder(
@@ -264,7 +288,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ElevatedButton(
                                   onPressed: () {},
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF001C70),
+                                    backgroundColor: const Color(0xFF004CFF),
                                     minimumSize:
                                         const Size(double.infinity, 50),
                                     shape: RoundedRectangleBorder(
